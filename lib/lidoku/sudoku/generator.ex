@@ -53,9 +53,9 @@ defmodule Lidoku.Sudoku.Generator do
   end
 
   defp pluck(puzzle, n, cells, cells_left) do
-    cond do
-      MapSet.size(cells) <= n or MapSet.size(cells_left) <= 0 -> {puzzle, MapSet.size(cells)}
-      true ->
+    if MapSet.size(cells) <= n or MapSet.size(cells_left) <= 0 do
+      {puzzle, MapSet.size(cells)}
+    else
         cell = Enum.random(cells_left)
         cells_left = MapSet.delete(cells_left, cell)
         with true <- test_pluck(puzzle, false, false, false, 0, cell) do
